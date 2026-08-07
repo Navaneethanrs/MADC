@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-void text-text font-body antialiased;
+  }
+
+  ::selection {
+    @apply bg-blue/40 text-text;
+  }
+
+  :focus-visible {
+    outline: 2px solid #4be8ff;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .orbit-card {
+    @apply flex items-center whitespace-nowrap rounded-full border bg-deep/80 px-3 py-1.5 shadow-[0_0_18px_-6px_rgba(79,125,255,0.6)] backdrop-blur-sm transition-[border-color] duration-300;
+  }
+
+  .terminal-input {
+    @apply w-full rounded-lg border border-white/10 bg-void/70 px-3 py-2.5 font-mono text-sm text-text placeholder:text-text-faint focus:border-blue/60;
+  }
+}
+
+@layer utilities {
+  .font-800 {
+    font-weight: 800;
+  }
+  .font-700 {
+    font-weight: 700;
+  }
+  .font-600 {
+    font-weight: 600;
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes pulseSlow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

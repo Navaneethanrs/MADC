@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background: #050806;
+}
+
+body {
+  margin: 0;
+  color: #f4f8f1;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #00ff66;
+  color: #050806;
+}
+
+:focus-visible {
+  outline: 2px solid #00ff66;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ---------- shared keyframes ---------- */
+
+@keyframes driftGradient {
+  0% {
+    background-position: 0% 0%, 100% 100%, 0 0;
+  }
+  100% {
+    background-position: 20% 15%, 75% 85%, 0 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 250% 50%;
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: rotate(45deg) translate(0, 0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotate(45deg) translate(4px, 4px);
+    opacity: 1;
+  }
+}
+
+@keyframes floatChip {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hero-bg {
+  background: radial-gradient(60% 50% at 22% 18%, rgba(0, 255, 102, 0.14), transparent 60%),
+    radial-gradient(55% 45% at 82% 78%, rgba(0, 230, 118, 0.12), transparent 60%),
+    linear-gradient(180deg, #050806 0%, #09100c 55%, #0d1712 100%);
+  background-size: 140% 140%, 140% 140%, 100% 100%;
+  animation: driftGradient 22s ease-in-out infinite alternate;
+}
+
+.grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+  opacity: 0.045;
+}
+
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    #00ff66 10%,
+    #39ff14 35%,
+    #00e676 60%,
+    #a3e635 80%,
+    #00ff66 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 7s linear infinite;
+}
+
+.orbit-card.active {
+  border-color: rgba(0, 255, 102, 0.6) !important;
+  background: rgba(9, 16, 12, 0.85) !important;
+  box-shadow: 0 0 24px -2px var(--glow, rgba(0, 255, 102, 0.5));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg,
+  .text-gradient {
+    animation: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- Mint Cream Light Theme (#F4F8F1) ---------- */
+
+html.theme-light,
+html.theme-light body,
+html.theme-light #root {
+  background: #f4f8f1 !important;
+  color: #0d1712 !important;
+}
+
+html.theme-light ::selection {
+  background: #00a843;
+  color: #ffffff;
+}
+
+html.theme-light :focus-visible {
+  outline: 2px solid #00a843;
+}
+
+html.theme-light .hero-bg {
+  background: radial-gradient(60% 50% at 22% 18%, rgba(0, 168, 67, 0.1), transparent 60%),
+    radial-gradient(55% 45% at 82% 78%, rgba(16, 185, 129, 0.1), transparent 60%),
+    linear-gradient(180deg, #f4f8f1 0%, #e7f3e4 55%, #daf0e6 100%) !important;
+}
+
+html.theme-light .text-gradient {
+  background: linear-gradient(
+    100deg,
+    #008837 10%,
+    #00b848 35%,
+    #059669 60%,
+    #008837 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+html.theme-light section {
+  background-color: #f4f8f1 !important;
+  color: #0d1712 !important;
+}
+
+html.theme-light .bg-void,
+html.theme-light .bg-\[\#09100c\\] {
+  background-color: #f4f8f1 !important;
+}
+
+html.theme-light .text-text {
+  color: #0d1712 !important;
+}
+
+html.theme-light .text-text-dim {
+  color: #3b5245 !important;
+}
+
+html.theme-light .text-text-faint {
+  color: #5d7869 !important;
+}
+
+html.theme-light .border-white\/5,
+html.theme-light .border-white\/10 {
+  border-color: rgba(0, 168, 67, 0.15) !important;
+}
+
+html.theme-light .orbit-card {
+  background: rgba(244, 248, 241, 0.9) !important;
+  border-color: rgba(0, 168, 67, 0.25) !important;
+  color: #0d1712 !important;
+}
+
+
