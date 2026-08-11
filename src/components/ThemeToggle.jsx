@@ -11,13 +11,13 @@ export default function ThemeToggle({ className = '' }) {
       type="button"
       aria-label="Toggle theme"
       title={isLight ? 'Switch to Dark Cyber Green Theme' : 'Switch to Mint Cream Light Theme'}
-      className={`relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-300 ${
+      className={`relative inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full border transition-all duration-300 flex-shrink-0 cursor-pointer ${
         isLight
-          ? 'bg-white/90 border-[#00A843]/30 text-[#0d1712] shadow-md hover:border-[#00A843]'
-          : 'bg-[#09100c]/80 border-green/30 text-text hover:border-green hover:shadow-[0_0_15px_rgba(0,255,102,0.3)]'
+          ? 'bg-white/95 border-[#00A843]/50 text-[#0d1712] shadow-md hover:border-[#00A843]'
+          : 'bg-[#09100c]/90 border-green/50 text-text hover:border-green hover:shadow-[0_0_15px_rgba(0,255,102,0.4)]'
       } ${className}`}
     >
-      <span className="w-4 h-4 flex items-center justify-center">
+      <span className="w-4 h-4 flex items-center justify-center flex-shrink-0">
         {isLight ? (
           /* Sun Icon */
           <svg viewBox="0 0 24 24" fill="none" stroke="#00A843" strokeWidth="2.5" className="w-4 h-4">
@@ -31,7 +31,7 @@ export default function ThemeToggle({ className = '' }) {
           </svg>
         )}
       </span>
-      <span className="font-mono text-[10px] font-bold tracking-wider uppercase">
+      <span className="hidden sm:inline-block font-mono text-[10px] font-bold tracking-wider uppercase">
         {isLight ? 'Mint Mode' : 'Cyber Mode'}
       </span>
     </button>

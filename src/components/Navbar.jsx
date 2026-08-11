@@ -82,12 +82,12 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Action & Hamburger Button */}
-        <div className="flex lg:hidden items-center gap-3">
+        <div className="flex lg:hidden items-center gap-2 sm:gap-3 flex-shrink-0 z-50">
           <ThemeToggle />
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="w-10 h-10 rounded-xl border border-white/15 bg-black/60 text-text hover:text-green hover:border-green flex items-center justify-center transition-all duration-300 z-50 focus:outline-none"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-white/20 bg-black/80 text-text hover:text-green hover:border-green flex items-center justify-center transition-all duration-300 flex-shrink-0 focus:outline-none shadow-lg cursor-pointer"
             aria-label="Toggle Mobile Menu"
           >
             {isMobileMenuOpen ? (
