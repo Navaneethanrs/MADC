@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MADC — Mobile Application and App Development</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>MADC — Mobile Application Development Club</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,8 +11,41 @@
       rel="stylesheet"
     />
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="margin: 0; background: #050806; color: #ffffff;">
+    <div id="root">
+      <!-- Instant Mobile Preloader HTML Fallback -->
+      <div style="position: fixed; inset: 0; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, #0a1b12 0%, #050907 60%, #020403 100%); font-family: 'JetBrains Mono', monospace; padding: 16px; box-sizing: border-box; min-height: 100dvh;">
+        <div style="position: relative; margin-bottom: 24px; text-align: center;">
+          <svg viewBox="0 0 460 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 56px; width: auto; max-width: 240px; filter: drop-shadow(0 0 16px rgba(0,255,102,0.4));">
+            <path d="M 20 120 L 20 20 L 45 20 L 65 75 L 85 20 L 110 20 L 110 120 L 88 120 L 88 50 L 71 95 L 59 95 L 42 50 L 42 120 Z" fill="#FFFFFF" />
+            <path d="M 46 45 L 65 88 L 73 88 L 52 45 Z" fill="#00FF66" />
+            <g id="android-a">
+              <line x1="165" y1="26" x2="152" y2="10" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+              <line x1="215" y1="26" x2="228" y2="10" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+              <path d="M 152 42 C 152 24 228 24 228 42 Z" fill="#FFFFFF" />
+              <circle cx="170" cy="34" r="3.5" fill="#00FF66" />
+              <circle cx="210" cy="34" r="3.5" fill="#00FF66" />
+              <rect x="142" y="44" width="7" height="18" rx="3.5" fill="#FFFFFF" />
+              <rect x="231" y="44" width="7" height="18" rx="3.5" fill="#FFFFFF" />
+              <rect x="152" y="46" width="76" height="54" rx="4" fill="#FFFFFF" />
+              <rect x="138" y="52" width="10" height="38" rx="5" fill="#FFFFFF" />
+              <rect x="232" y="52" width="10" height="38" rx="5" fill="#FFFFFF" />
+              <rect x="164" y="98" width="14" height="22" rx="4" fill="#FFFFFF" />
+              <rect x="202" y="98" width="14" height="22" rx="4" fill="#FFFFFF" />
+              <rect x="160" y="52" width="60" height="42" rx="6" fill="#00FF66" />
+            </g>
+            <path d="M 258 20 H 305 C 332 20 348 38 348 70 C 348 102 332 120 305 120 H 258 V 20 Z M 282 42 V 98 H 303 C 318 98 325 87 325 70 C 325 53 318 42 303 42 H 282 Z" fill="#FFFFFF" />
+            <path d="M 430 40 C 418 24 398 20 378 20 C 352 20 335 38 335 70 C 335 102 352 120 378 120 C 400 120 420 112 432 92 L 413 80 C 405 92 393 98 378 98 C 364 98 358 87 358 70 C 358 53 364 42 378 42 C 392 42 404 48 412 60 L 430 40 Z" fill="#FFFFFF" />
+          </svg>
+          <div style="font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: #E5E7EB; margin-top: 6px;">MOBILE APPLICATION DEVELOPMENT CLUB</div>
+        </div>
+        <div style="width: 200px; height: 4px; background: #08120c; border-radius: 999px; overflow: hidden; border: 1px solid rgba(0,255,102,0.3);">
+          <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #00a843, #00ff66, #00e5ff); border-radius: 999px;"></div>
+        </div>
+        <div style="font-size: 10px; color: #00FF66; margin-top: 12px; letter-spacing: 0.15em;">INITIALIZING MADC...</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+
