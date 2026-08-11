@@ -146,15 +146,22 @@ export default function JoinUs() {
         </div>
         
         {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 font-mono text-xs text-text-faint">
-          <div className="flex items-center">
+        <footer className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 font-mono text-xs text-text-faint">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center sm:text-left">
             <MadcLogo className="h-7" showSubtitle={false} />
+            <span className="hidden sm:inline text-white/20">|</span>
+            <span className="text-green-bright font-semibold tracking-wider uppercase text-[11px]">
+              Innovate &middot; Build &middot; Deploy
+            </span>
           </div>
+
           <span className="text-center">&copy; {new Date().getFullYear()} MADC. All rights reserved.</span>
-          <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-green transition-colors">GitHub</a>
-            <a href="#" className="hover:text-green transition-colors">Figma</a>
-            <a href="#" className="hover:text-green transition-colors">Docs</a>
+
+          <div className="flex items-center gap-1.5 text-text-dim text-[11px] sm:text-xs">
+            <span>Developed by</span>
+            <span className="text-green-bright font-bold hover:underline cursor-pointer">
+              Navaneethan RS
+            </span>
           </div>
         </footer>
       </div>
