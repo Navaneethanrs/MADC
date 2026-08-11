@@ -2,32 +2,42 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { makeDotTexture } from '../utils/geometry'
+import { useTheme } from '../context/ThemeContext'
 
-const PALETTE = [
+const DARK_PALETTE = [
   [0.31, 0.49, 1],
   [0.61, 0.36, 1],
   [0.29, 0.91, 1],
 ]
 
+const LIGHT_PALETTE = [
+  [0.0, 0.65, 0.26],
+  [0.02, 0.75, 0.4],
+  [0.1, 0.5, 0.3],
+]
+
 export default function Particles() {
   const pointsRef = useRef()
+  const { theme } = useTheme()
+  const isLight = theme === 'light'
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 760
   const count = isMobile ? 260 : 650
 
   const { positions, colors } = useMemo(() => {
     const positions = new Float32Array(count * 3)
     const colors = new Float32Array(count * 3)
+    const palette = isLight ? LIGHT_PALETTE : DARK_PALETTE
     for (let i = 0; i < count; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 18
       positions[i * 3 + 1] = (Math.random() - 0.5) * 12
       positions[i * 3 + 2] = (Math.random() - 0.5) * 10 - 2
-      const c = PALETTE[Math.floor(Math.random() * PALETTE.length)]
+      const c = palette[Math.floor(Math.random() * palette.length)]
       colors[i * 3] = c[0]
       colors[i * 3 + 1] = c[1]
       colors[i * 3 + 2] = c[2]
     }
     return { positions, colors }
-  }, [count])
+  }, [count, isLight])
 
   const dotTexture = useMemo(() => new THREE.CanvasTexture(makeDotTexture()), [])
 
@@ -45,15 +55,16 @@ export default function Particles() {
         <bufferAttribute attach="attributes-color" args={[colors, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={isLight ? 0.06 : 0.05}
         map={dotTexture}
         transparent
-        opacity={0.75}
+        opacity={isLight ? 0.55 : 0.75}
         vertexColors
-        blending={THREE.AdditiveBlending}
+        blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
         depthWrite={false}
         sizeAttenuation
       />
     </points>
   )
 }
+

@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import PhotoModal from './PhotoModal'
 
 export default function ClubSecretary() {
+  const [showModal, setShowModal] = useState(false)
+
+  const secretaryMember = {
+    name: 'HARISH KANNAN N',
+    rollNo: '23CSR077',
+    phone: '8667577236',
+    posting: 'SECRETARY',
+    category: 'Core Executive Leadership',
+    image: '/secretary-harish.png',
+    initials: 'HK',
+    color: '#00ff66',
+    glow: 'rgba(0, 255, 102, 0.4)',
+  }
+
   return (
     <section id="secretary" className="relative py-20 px-6 md:px-16 lg:px-24 bg-void overflow-hidden">
       {/* Background ambient gradient glow */}
@@ -41,10 +56,14 @@ export default function ClubSecretary() {
             }}
           />
 
-          {/* Secretary Image */}
-          <div className="relative flex-shrink-0">
+          {/* Secretary Image (Clickable for Photo Modal) */}
+          <div 
+            className="relative flex-shrink-0 cursor-pointer group/photo"
+            onClick={() => setShowModal(true)}
+            title="Click to view photo in high resolution"
+          >
             <div 
-              className="w-44 h-44 md:w-52 md:h-52 rounded-2xl overflow-hidden border-2 p-1.5 transition-transform duration-500 group-hover:scale-105"
+              className="w-44 h-44 md:w-52 md:h-52 rounded-2xl overflow-hidden border-2 p-1.5 transition-transform duration-500 group-hover/photo:scale-105 relative"
               style={{
                 borderColor: '#00ff66',
                 background: 'rgba(5, 8, 6, 0.9)',
@@ -54,7 +73,7 @@ export default function ClubSecretary() {
               <img
                 src="/secretary-harish.png"
                 alt="Harish Kannan"
-                className="w-full h-full object-cover rounded-xl"
+                className="w-full h-full object-cover rounded-xl transition-all duration-300 group-hover/photo:brightness-110"
               />
             </div>
 
@@ -111,6 +130,14 @@ export default function ClubSecretary() {
           </div>
         </div>
       </div>
+
+      {/* Lightbox Photo Popup */}
+      {showModal && (
+        <PhotoModal
+          member={secretaryMember}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </section>
   )
 }

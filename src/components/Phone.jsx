@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import { createRoundedBoxGeometry, drawPhoneScreen, makeGlowTexture } from '../utils/geometry'
 import { platforms } from '../data/platforms'
+import { useTheme } from '../context/ThemeContext'
 
 const PHONE_D = 0.2
 
@@ -12,6 +13,9 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
   const sheenRef = useRef()
   const sheenMatRef = useRef()
   const { camera, size } = useThree()
+
+  const { theme } = useTheme()
+  const isLight = theme === 'light'
 
   const bodyGeo = useMemo(() => createRoundedBoxGeometry(1.85, 3.75, PHONE_D, 0.32), [])
   const rimGeo = useMemo(() => createRoundedBoxGeometry(1.85, 3.75, PHONE_D, 0.32), [])
@@ -27,13 +31,13 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
     return { canvas, texture }
   }, [])
 
-  const glowTexture = useMemo(() => new THREE.CanvasTexture(makeGlowTexture()), [])
+  const glowTexture = useMemo(() => new THREE.CanvasTexture(makeGlowTexture(isLight)), [isLight])
 
   useEffect(() => {
     const ctx = canvas.getContext('2d')
-    drawPhoneScreen(ctx, platforms[activeIndex])
+    drawPhoneScreen(ctx, platforms[activeIndex], isLight)
     texture.needsUpdate = true
-  }, [activeIndex, canvas, texture])
+  }, [activeIndex, canvas, texture, isLight])
 
   // Sheen sweep loop
   useEffect(() => {
@@ -42,12 +46,12 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
 
     const tl = gsap.timeline({ repeat: -1, repeatDelay: 2.4 })
     tl.set(sheenRef.current.position, { x: -1.3 })
-      .to(sheenMatRef.current, { opacity: 0.5, duration: 0.3 })
+      .to(sheenMatRef.current, { opacity: isLight ? 0.35 : 0.5, duration: 0.3 })
       .to(sheenRef.current.position, { x: 1.3, duration: 1.1, ease: 'power2.inOut' }, '<')
       .to(sheenMatRef.current, { opacity: 0, duration: 0.4 }, '-=0.3')
 
     return () => tl.kill()
-  }, [])
+  }, [isLight])
 
   const curTilt = useRef({ x: 0, y: 0 })
   const projected = useMemo(() => new THREE.Vector3(), [])
@@ -79,13 +83,13 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
       {/* body */}
       <mesh geometry={bodyGeo}>
         <meshPhysicalMaterial
-          color="#08140c"
-          metalness={0.6}
-          roughness={0.14}
+          color={isLight ? '#e6f4ea' : '#08140c'}
+          metalness={isLight ? 0.35 : 0.6}
+          roughness={isLight ? 0.12 : 0.14}
           clearcoat={1}
-          clearcoatRoughness={0.08}
+          clearcoatRoughness={0.05}
           reflectivity={1}
-          transmission={0.08}
+          transmission={isLight ? 0.02 : 0.08}
           ior={1.4}
         />
       </mesh>
@@ -93,11 +97,11 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
       {/* rim glow shell */}
       <mesh geometry={rimGeo} scale={[1.045, 1.03, 1.4]}>
         <meshBasicMaterial
-          color="#00ff66"
+          color={isLight ? '#00a843' : '#00ff66'}
           transparent
-          opacity={0.28}
+          opacity={isLight ? 0.4 : 0.28}
           side={THREE.BackSide}
-          blending={THREE.AdditiveBlending}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
           depthWrite={false}
         />
       </mesh>
@@ -116,27 +120,35 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
       >
         <meshBasicMaterial
           ref={sheenMatRef}
-          color="#ffffff"
+          color={isLight ? '#00a843' : '#ffffff'}
           transparent
           opacity={0}
-          blending={THREE.AdditiveBlending}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
           depthWrite={false}
         />
       </mesh>
 
       {/* halo glow sprites */}
       <sprite scale={[6.5, 6.5, 1]} position={[0, 0, -0.6]}>
-        <spriteMaterial map={glowTexture} transparent blending={THREE.AdditiveBlending} depthWrite={false} />
+        <spriteMaterial
+          map={glowTexture}
+          transparent
+          opacity={isLight ? 0.6 : 0.9}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
+          depthWrite={false}
+        />
       </sprite>
       <sprite scale={[5, 5, 1]} position={[1.2, -1, -0.4]}>
         <spriteMaterial
           map={glowTexture}
-          color="#00e676"
+          color={isLight ? '#00a843' : '#00e676'}
           transparent
-          blending={THREE.AdditiveBlending}
+          opacity={isLight ? 0.5 : 0.8}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
           depthWrite={false}
         />
       </sprite>
     </group>
   )
 }
+

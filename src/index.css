@@ -73,6 +73,34 @@ body {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 .hero-bg {
   background: radial-gradient(60% 50% at 22% 18%, rgba(0, 255, 102, 0.14), transparent 60%),
     radial-gradient(55% 45% at 82% 78%, rgba(0, 230, 118, 0.12), transparent 60%),
@@ -154,18 +182,18 @@ html.theme-light :focus-visible {
 }
 
 html.theme-light .hero-bg {
-  background: radial-gradient(60% 50% at 22% 18%, rgba(0, 168, 67, 0.1), transparent 60%),
-    radial-gradient(55% 45% at 82% 78%, rgba(16, 185, 129, 0.1), transparent 60%),
+  background: radial-gradient(60% 50% at 22% 18%, rgba(0, 168, 67, 0.12), transparent 60%),
+    radial-gradient(55% 45% at 82% 78%, rgba(16, 185, 129, 0.12), transparent 60%),
     linear-gradient(180deg, #f4f8f1 0%, #e7f3e4 55%, #daf0e6 100%) !important;
 }
 
 html.theme-light .text-gradient {
   background: linear-gradient(
     100deg,
-    #008837 10%,
-    #00b848 35%,
+    #007a31 10%,
+    #00a843 35%,
     #059669 60%,
-    #008837 100%
+    #007a31 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
@@ -178,31 +206,444 @@ html.theme-light section {
 }
 
 html.theme-light .bg-void,
-html.theme-light .bg-\[\#09100c\\] {
+html.theme-light .bg-\[\#050906\],
+html.theme-light .bg-\[\#060b08\],
+html.theme-light .bg-\[\#09100c\],
+html.theme-light .bg-\[\#0a150e\],
+html.theme-light .bg-\[\#050806\],
+html.theme-light .bg-\[\#090b1c\] {
   background-color: #f4f8f1 !important;
 }
 
+/* Header / Navbar in Mint Mode */
+html.theme-light header {
+  background-color: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+html.theme-light header nav a {
+  color: #2d4a3a !important;
+}
+
+html.theme-light header nav a:hover,
+html.theme-light header nav a.text-green {
+  color: #008837 !important;
+  font-weight: 700 !important;
+}
+
+/* Text Hierarchy & Contrast in Mint Mode */
 html.theme-light .text-text {
   color: #0d1712 !important;
 }
 
 html.theme-light .text-text-dim {
-  color: #3b5245 !important;
+  color: #2d4a3a !important;
 }
 
 html.theme-light .text-text-faint {
-  color: #5d7869 !important;
+  color: #1b432c !important;
+}
+
+html.theme-light .text-green-bright,
+html.theme-light .text-cyan,
+html.theme-light .text-violet-bright {
+  color: #008837 !important;
+  font-weight: 700 !important;
 }
 
 html.theme-light .border-white\/5,
 html.theme-light .border-white\/10 {
-  border-color: rgba(0, 168, 67, 0.15) !important;
+  border-color: rgba(0, 168, 67, 0.18) !important;
 }
 
+/* Orbit Floating Tech Cards in Mint Mode */
 html.theme-light .orbit-card {
-  background: rgba(244, 248, 241, 0.9) !important;
-  border-color: rgba(0, 168, 67, 0.25) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 168, 67, 0.3) !important;
+  color: #0d1712 !important;
+  box-shadow: 0 6px 20px rgba(0, 168, 67, 0.1) !important;
+}
+
+html.theme-light .orbit-card .font-body {
+  color: #0d1712 !important;
+  font-weight: 700 !important;
+}
+
+html.theme-light .orbit-card .font-mono {
+  color: #1b432c !important;
+  font-weight: 600 !important;
+}
+
+html.theme-light .orbit-card.active {
+  border-color: #00a843 !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 24px -2px rgba(0, 168, 67, 0.45) !important;
+}
+
+/* Stat Chips in Hero */
+html.theme-light .stat-chip {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 168, 67, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 168, 67, 0.1) !important;
+}
+
+html.theme-light .stat-chip .text-text {
   color: #0d1712 !important;
 }
 
+html.theme-light .stat-chip .text-text-faint {
+  color: #008837 !important;
+  font-weight: 700 !important;
+}
 
+/* Section Cards & Glass Containers in Mint Mode */
+html.theme-light #achievements .group,
+html.theme-light #features .group,
+html.theme-light #secretary .group,
+html.theme-light #faculty .group,
+html.theme-light #join > div > div,
+html.theme-light #team .group,
+html.theme-light #projects .group {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-color: rgba(0, 168, 67, 0.22) !important;
+  box-shadow: 0 12px 36px rgba(0, 168, 67, 0.08) !important;
+}
+
+html.theme-light #achievements .group:hover,
+html.theme-light #features .group:hover,
+html.theme-light #secretary .group:hover,
+html.theme-light #faculty .group:hover,
+html.theme-light #team .group:hover,
+html.theme-light #projects .group:hover {
+  border-color: #00a843 !important;
+  box-shadow: 0 20px 45px rgba(0, 168, 67, 0.18) !important;
+}
+
+/* Secretary & Faculty Specific Elements */
+html.theme-light #secretary .group img,
+html.theme-light #faculty .group img {
+  border-color: #00a843 !important;
+}
+
+html.theme-light #secretary .group span[style*="background: '#050806'"],
+html.theme-light #faculty .group span[style*="background: '#050806'"],
+html.theme-light #secretary .group span[style*='background: "#050806"'],
+html.theme-light #faculty .group span[style*='background: "#050806"'] {
+  background: #00a843 !important;
+  color: #ffffff !important;
+  border-color: #008837 !important;
+}
+
+/* Join Us Form Inputs in Mint Mode */
+html.theme-light #user-email {
+  background: #ffffff !important;
+  color: #0d1712 !important;
+  border-color: rgba(0, 168, 67, 0.35) !important;
+}
+
+html.theme-light #user-email::placeholder {
+  color: #6b8777 !important;
+}
+
+html.theme-light #join form button[type="button"] {
+  background: #f0f7f2 !important;
+  border-color: rgba(0, 168, 67, 0.25) !important;
+  color: #1b432c !important;
+  font-weight: 600 !important;
+}
+
+html.theme-light #join form button.border-green {
+  background: #00a843 !important;
+  color: #ffffff !important;
+  border-color: #00a843 !important;
+}
+
+html.theme-light button.explore-btn,
+html.theme-light #join form button[type="submit"] {
+  background: linear-gradient(100deg, #00a843, #059669) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(0, 168, 67, 0.35) !important;
+}
+
+/* Footer in Light Mode */
+html.theme-light footer {
+  border-top-color: rgba(0, 168, 67, 0.2) !important;
+  color: #2d4a3a !important;
+}
+
+/* Team Section in Light Mode */
+html.theme-light #team button.bg-green {
+  background: #00a843 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(0, 168, 67, 0.3) !important;
+}
+
+html.theme-light #team button.border-white\/10 {
+  background: #ffffff !important;
+  border-color: rgba(0, 168, 67, 0.25) !important;
+  color: #2d4a3a !important;
+}
+
+html.theme-light #team input {
+  background: #ffffff !important;
+  color: #0d1712 !important;
+  border-color: rgba(0, 168, 67, 0.3) !important;
+}
+
+html.theme-light #team input::placeholder {
+  color: #6b8777 !important;
+}
+
+html.theme-light #team div[class*="bg-black/"] {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 168, 67, 0.2) !important;
+  box-shadow: 0 6px 20px rgba(0, 168, 67, 0.06) !important;
+}
+
+/* ---------- Mint Mode Modal & Cards Contrast Enhancements ---------- */
+
+/* Modal Overlay & Container in Mint Mode */
+html.theme-light .modal-overlay {
+  background: rgba(235, 244, 232, 0.88) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+html.theme-light .modal-card {
+  background: #ffffff !important;
+  border-color: rgba(0, 168, 67, 0.4) !important;
+  box-shadow: 0 25px 65px rgba(0, 168, 67, 0.22), 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+  color: #0d1712 !important;
+}
+
+html.theme-light .modal-card h3,
+html.theme-light .modal-member-name {
+  color: #0d1712 !important;
+  font-weight: 800 !important;
+}
+
+html.theme-light .modal-card .text-green-bright {
+  color: #007a31 !important;
+  font-weight: 700 !important;
+}
+
+html.theme-light .modal-card .text-text-faint {
+  color: #1b432c !important;
+  font-weight: 700 !important;
+}
+
+html.theme-light .modal-card .text-text-dim {
+  color: #2d4a3a !important;
+  font-weight: 500 !important;
+}
+
+html.theme-light .modal-card a[href^="tel:"] {
+  color: #007a31 !important;
+  font-weight: 700 !important;
+}
+
+html.theme-light .modal-card a[href^="tel:"]:hover {
+  color: #004d1f !important;
+}
+
+html.theme-light .modal-close-btn {
+  background: #f0f7f2 !important;
+  color: #0d1712 !important;
+  border-color: rgba(0, 168, 67, 0.3) !important;
+}
+
+html.theme-light .modal-close-btn:hover {
+  background: #00a843 !important;
+  color: #ffffff !important;
+  border-color: #00a843 !important;
+}
+
+html.theme-light .modal-role-badge {
+  background: #008837 !important;
+  color: #ffffff !important;
+  border-color: #007a31 !important;
+  box-shadow: 0 4px 15px rgba(0, 136, 55, 0.3) !important;
+}
+
+html.theme-light .modal-tag-badge {
+  background: #f0f7f2 !important;
+  border-color: rgba(0, 168, 67, 0.3) !important;
+  color: #007a31 !important;
+}
+
+/* Cards & Text Contrast in Mint Mode */
+html.theme-light #team .group,
+html.theme-light #secretary .group,
+html.theme-light #faculty .group,
+html.theme-light div[class*="bg-black/"],
+html.theme-light div[style*="background: 'rgba(9, 16, 12"],
+html.theme-light div[style*="background: rgba(9, 16, 12"] {
+  background: #ffffff !important;
+  border-color: rgba(0, 168, 67, 0.22) !important;
+  box-shadow: 0 10px 30px rgba(0, 168, 67, 0.08) !important;
+}
+
+html.theme-light #team h3,
+html.theme-light #team h4,
+html.theme-light #team h5,
+html.theme-light #secretary h3,
+html.theme-light #faculty h3 {
+  color: #0d1712 !important;
+  font-weight: 800 !important;
+}
+
+html.theme-light #team h3:hover,
+html.theme-light #team h4:hover,
+html.theme-light #team h5:hover {
+  color: #008837 !important;
+}
+
+html.theme-light #team .text-text-dim,
+html.theme-light #secretary .text-text-dim,
+html.theme-light #team .text-text-dim,
+html.theme-light #secretary .text-text-dim,
+html.theme-light #faculty .text-text-dim {
+  color: #2d4a3a !important;
+  font-weight: 500 !important;
+}
+
+html.theme-light #team .text-text-faint,
+html.theme-light #secretary .text-text-faint,
+html.theme-light #faculty .text-text-faint {
+  color: #1b432c !important;
+  font-weight: 600 !important;
+}
+
+html.theme-light #team .text-green-bright,
+html.theme-light #secretary .text-green-bright,
+html.theme-light #faculty .text-green-bright {
+  color: #007a31 !important;
+  font-weight: 700 !important;
+}
+
+html.theme-light span[style*="background: '#050806'"],
+html.theme-light span[style*='background: "#050806"'] {
+  background: #008837 !important;
+  color: #ffffff !important;
+  border-color: #007a31 !important;
+}
+
+/* ---------- Modal Solid Opacity Fix (No Transparency Bleed) ---------- */
+.achievement-modal-card {
+  background-color: #09100c !important;
+}
+
+.modal-overlay {
+  background-color: rgba(3, 7, 4, 0.96) !important;
+}
+
+html.theme-light .modal-overlay {
+  background-color: rgba(235, 244, 232, 0.96) !important;
+}
+
+html.theme-light .achievement-modal-card {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 168, 67, 0.4) !important;
+  color: #0d1712 !important;
+  box-shadow: 0 25px 60px rgba(0, 168, 67, 0.25) !important;
+}
+
+html.theme-light .achievement-modal-card h3,
+html.theme-light .achievement-modal-card h4 {
+  color: #0d1712 !important;
+}
+
+html.theme-light .achievement-modal-desc {
+  background: #f0f7f2 !important;
+  color: #1b432c !important;
+  border-color: rgba(0, 168, 67, 0.25) !important;
+  font-weight: 500 !important;
+}
+
+html.theme-light .achievement-modal-counter {
+  background: #ffffff !important;
+  color: #007a31 !important;
+  border-color: rgba(0, 168, 67, 0.3) !important;
+  font-weight: 600 !important;
+}
+
+html.theme-light .modal-nav-prev,
+html.theme-light .modal-nav-next {
+  background: #ffffff !important;
+  color: #0d1712 !important;
+  border-color: rgba(0, 168, 67, 0.3) !important;
+  box-shadow: 0 8px 25px rgba(0, 168, 67, 0.15) !important;
+}
+
+html.theme-light .achievement-card {
+  background: #ffffff !important;
+  border-width: 2px !important;
+  border-color: #00a843 !important;
+  box-shadow: 0 0 24px rgba(0, 168, 67, 0.2) !important;
+}
+
+html.theme-light .achievement-card:hover {
+  border-color: #008837 !important;
+  box-shadow: 0 0 35px rgba(0, 168, 67, 0.35) !important;
+}
+
+html.theme-light .achievement-card h4 {
+  color: #0d1712 !important;
+}
+
+html.theme-light .photo-box {
+  background: #eef6eb !important;
+}
+
+html.theme-light .tab-container {
+  background: #ffffff !important;
+  border-color: rgba(0, 168, 67, 0.25) !important;
+  box-shadow: 0 10px 25px rgba(0, 168, 67, 0.1) !important;
+}
+
+html.theme-light .timeline-node {
+  background: #ffffff !important;
+  border-color: #00a843 !important;
+  color: #007a31 !important;
+}
+
+html.theme-light .date-badge {
+  background: #f0f7f2 !important;
+  color: #007a31 !important;
+  border-color: rgba(0, 168, 67, 0.25) !important;
+}
+
+html.theme-light .spectra-highlight {
+  background: #fff0f3 !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+html.theme-light .spectra-highlight span,
+html.theme-light .spectra-highlight li {
+  color: #1f2937 !important;
+}
+
+html.theme-light .spectra-banner {
+  background: linear-gradient(135deg, #fff0f3 0%, #f4f8f1 100%) !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+html.theme-light .team-card-grand {
+  background: #ffffff !important;
+  border-width: 2px !important;
+  border-color: #00a843 !important;
+  box-shadow: 0 0 25px rgba(0, 168, 67, 0.25) !important;
+}
+
+html.theme-light .team-card-subtle {
+  background: #ffffff !important;
+  border-width: 1px !important;
+  border-color: rgba(0, 168, 67, 0.2) !important;
+  box-shadow: 0 4px 15px rgba(0, 168, 67, 0.05) !important;
+}
+
+html.theme-light .team-card-subtle:hover {
+  border-color: #00a843 !important;
+  box-shadow: 0 8px 25px rgba(0, 168, 67, 0.18) !important;
+}

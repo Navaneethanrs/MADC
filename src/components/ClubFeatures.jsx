@@ -33,7 +33,7 @@ const features = [
 
 export default function ClubFeatures() {
   return (
-    <section id="features" className="relative py-24 px-6 md:px-16 lg:px-24 bg-void overflow-hidden">
+    <section id="features" className="hero-bg relative py-16 px-4 sm:px-8 md:px-16 lg:px-24 overflow-hidden">
       {/* Background glow effects */}
       <div 
         className="absolute top-1/4 left-[10%] w-96 h-96 rounded-full pointer-events-none opacity-15 filter blur-[90px]"

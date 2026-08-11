@@ -22,7 +22,7 @@ export default function MadcLogo({ className = 'h-10', showSubtitle = true, ligh
         viewBox="0 0 460 140"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-auto h-full max-h-full drop-shadow-[0_0_12px_rgba(0,255,102,0.3)]"
+        className={`w-auto h-full max-h-full ${isLight ? 'drop-shadow-[0_1px_4px_rgba(0,168,67,0.15)]' : 'drop-shadow-[0_0_12px_rgba(0,255,102,0.3)]'}`}
       >
         {/* --- LETTER M --- */}
         <path

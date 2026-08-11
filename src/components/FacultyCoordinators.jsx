@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import PhotoModal from './PhotoModal'
 
 const facultyMembers = [
   {
@@ -22,6 +23,22 @@ const facultyMembers = [
 ]
 
 export default function FacultyCoordinators() {
+  const [selectedFaculty, setSelectedFaculty] = useState(null)
+
+  const handleNext = () => {
+    if (!selectedFaculty) return
+    const currentIndex = facultyMembers.findIndex(m => m.name === selectedFaculty.name)
+    const nextIndex = (currentIndex + 1) % facultyMembers.length
+    setSelectedFaculty(facultyMembers[nextIndex])
+  }
+
+  const handlePrev = () => {
+    if (!selectedFaculty) return
+    const currentIndex = facultyMembers.findIndex(m => m.name === selectedFaculty.name)
+    const prevIndex = (currentIndex - 1 + facultyMembers.length) % facultyMembers.length
+    setSelectedFaculty(facultyMembers[prevIndex])
+  }
+
   return (
     <section id="faculty" className="relative py-24 px-6 md:px-16 lg:px-24 bg-[#09100c] overflow-hidden">
       {/* Background ambient lighting */}
@@ -61,10 +78,14 @@ export default function FacultyCoordinators() {
                 style={{ borderColor: member.color }}
               />
 
-              {/* Photo Frame */}
-              <div className="relative mb-6">
+              {/* Photo Frame (Clickable for Modal) */}
+              <div 
+                className="relative mb-6 cursor-pointer group/photo"
+                onClick={() => setSelectedFaculty(member)}
+                title="Click to expand photo"
+              >
                 <div 
-                  className="w-36 h-36 md:w-44 md:h-44 rounded-2xl overflow-hidden border-2 p-1.5 transition-transform duration-500 group-hover:scale-105"
+                  className="w-36 h-36 md:w-44 md:h-44 rounded-2xl overflow-hidden border-2 p-1.5 transition-transform duration-500 group-hover/photo:scale-105 relative shadow-xl"
                   style={{
                     borderColor: member.color,
                     background: 'rgba(9, 16, 12, 0.8)',
@@ -74,7 +95,7 @@ export default function FacultyCoordinators() {
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover rounded-xl"
+                    className="w-full h-full object-cover rounded-xl transition-all duration-300 group-hover/photo:brightness-110"
                   />
                 </div>
                 
@@ -113,6 +134,16 @@ export default function FacultyCoordinators() {
           ))}
         </div>
       </div>
+
+      {/* Faculty Photo Modal */}
+      {selectedFaculty && (
+        <PhotoModal
+          member={selectedFaculty}
+          onClose={() => setSelectedFaculty(null)}
+          onNext={handleNext}
+          onPrev={handlePrev}
+        />
+      )}
     </section>
   )
 }

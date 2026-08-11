@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
 import ScrollToTop from './components/ScrollToTop'
+import CursorGlow from './components/CursorGlow'
 import HomePage from './pages/HomePage'
 import FeaturesPage from './pages/FeaturesPage'
 import AchievementsPage from './pages/AchievementsPage'
@@ -12,6 +13,7 @@ export default function App() {
     <ThemeProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <CursorGlow />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/features" element={<FeaturesPage />} />

@@ -116,26 +116,13 @@ export default function Hero() {
         <span className="font-mono text-[9.5px] tracking-wider text-text-faint uppercase">Apps Shipped</span>
       </div>
 
-      {/* film grain + vignette + cursor glow */}
+      {/* film grain + vignette */}
       <div className="grain absolute -inset-[2px] pointer-events-none z-[7]" />
       <div
         className="absolute inset-0 pointer-events-none z-[6]"
         style={{
           background:
             'radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(5,8,6,0.6) 85%, rgba(3,5,4,0.88) 100%)',
-        }}
-      />
-      <div
-        ref={cursorGlowRef}
-        className="hidden md:block fixed top-0 left-0 pointer-events-none z-[8] rounded-full"
-        style={{
-          width: 520,
-          height: 520,
-          margin: '-260px 0 0 -260px',
-          background:
-            'radial-gradient(circle, rgba(0,255,102,0.16), rgba(0,230,118,0.06) 45%, transparent 70%)',
-          filter: 'blur(4px)',
-          willChange: 'transform',
         }}
       />
 
