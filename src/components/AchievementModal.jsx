@@ -102,6 +102,8 @@ export default function AchievementModal({ photo, onClose, onNext, onPrev, total
             <img
               src={image}
               alt={title}
+              loading="eager"
+              decoding="sync"
               className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
             />
           </div>

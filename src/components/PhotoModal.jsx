@@ -121,6 +121,8 @@ export default function PhotoModal({ member, onClose, onNext, onPrev }) {
               <img
                 src={image}
                 alt={name}
+                loading="eager"
+                decoding="sync"
                 className="w-full h-full object-cover object-top rounded-xl shadow-inner transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
