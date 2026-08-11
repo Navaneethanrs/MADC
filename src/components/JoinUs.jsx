@@ -156,7 +156,6 @@ export default function JoinUs() {
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="text-center">&copy; {new Date().getFullYear()} MADC.</span>
             <a
               href="https://www.instagram.com/madc_of_kec?igsh=MWhmNzR1cnNmeWp5MQ=="
               target="_blank"
