@@ -648,6 +648,12 @@ html.theme-light .team-card-subtle:hover {
   box-shadow: 0 8px 25px rgba(0, 168, 67, 0.18) !important;
 }
 
+html.theme-light .nav-open-header {
+  background-color: #f4f8f1 !important;
+  border-bottom-color: rgba(0, 168, 67, 0.2) !important;
+}
+
 html.theme-light .mobile-drawer {
   background-color: #f4f8f1 !important;
+  border-top-color: rgba(0, 168, 67, 0.2) !important;
 }

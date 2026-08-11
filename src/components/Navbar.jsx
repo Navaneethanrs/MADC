@@ -26,7 +26,13 @@ export default function Navbar() {
   }, [isMobileMenuOpen])
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-md py-3.5 px-4 sm:px-8 md:px-16 transition-all">
+    <header
+      className={`sticky top-0 z-50 w-full py-3.5 px-4 sm:px-8 md:px-16 transition-all ${
+        isMobileMenuOpen
+          ? 'bg-[#050906] border-b border-white/10 shadow-2xl nav-open-header'
+          : 'bg-transparent backdrop-blur-md'
+      }`}
+    >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex-shrink-0 min-w-[120px] hover:opacity-95 transition-opacity z-50">
@@ -87,12 +93,12 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-white/20 bg-black/80 text-text hover:text-green hover:border-green flex items-center justify-center transition-all duration-300 flex-shrink-0 focus:outline-none shadow-lg cursor-pointer"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-white/20 bg-black/90 text-text hover:text-green hover:border-green flex items-center justify-center transition-all duration-300 flex-shrink-0 focus:outline-none shadow-lg cursor-pointer"
             aria-label="Toggle Mobile Menu"
           >
             {isMobileMenuOpen ? (
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg className="w-5 h-5 text-green-bright" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -103,16 +109,17 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu - Solid Opaque Background */}
       {isMobileMenuOpen && (
         <div
-          className="mobile-drawer fixed inset-0 top-[60px] z-40 bg-[#050906]/95 backdrop-blur-xl flex flex-col justify-between p-6 animate-fade-in border-b border-white/10 lg:hidden overflow-y-auto"
+          className="mobile-drawer fixed top-[60px] sm:top-[64px] left-0 right-0 bottom-0 z-40 bg-[#050906] flex flex-col justify-between p-6 animate-fade-in border-t border-white/10 lg:hidden overflow-y-auto"
           onClick={(e) => {
             if (e.target === e.currentTarget) setIsMobileMenuOpen(false)
           }}
         >
           <div className="space-y-6 pt-4">
-            <div className="font-mono text-[11px] text-green-bright font-bold uppercase tracking-widest px-2 mb-2">
+            <div className="font-mono text-[11px] text-green-bright font-bold uppercase tracking-widest px-2 mb-2 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-green animate-pulse" />
               Navigation Menu
             </div>
 
@@ -120,10 +127,10 @@ export default function Navbar() {
               <Link
                 to="/"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`p-3.5 rounded-2xl border transition-all flex items-center justify-between ${
+                className={`p-4 rounded-2xl border transition-all flex items-center justify-between ${
                   currentPath === '/'
-                    ? 'bg-green/15 border-green text-green-bright font-bold'
-                    : 'border-white/10 text-text hover:bg-white/5'
+                    ? 'bg-green/15 border-green text-green-bright font-bold shadow-[0_0_15px_rgba(0,255,102,0.2)]'
+                    : 'border-white/10 text-text bg-black/40 hover:bg-white/5'
                 }`}
               >
                 <span>Home</span>
@@ -133,10 +140,10 @@ export default function Navbar() {
               <Link
                 to="/features"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`p-3.5 rounded-2xl border transition-all flex items-center justify-between ${
+                className={`p-4 rounded-2xl border transition-all flex items-center justify-between ${
                   currentPath === '/features'
-                    ? 'bg-green/15 border-green text-green-bright font-bold'
-                    : 'border-white/10 text-text hover:bg-white/5'
+                    ? 'bg-green/15 border-green text-green-bright font-bold shadow-[0_0_15px_rgba(0,255,102,0.2)]'
+                    : 'border-white/10 text-text bg-black/40 hover:bg-white/5'
                 }`}
               >
                 <span>Inside MADC</span>
@@ -146,10 +153,10 @@ export default function Navbar() {
               <Link
                 to="/achievements"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`p-3.5 rounded-2xl border transition-all flex items-center justify-between ${
+                className={`p-4 rounded-2xl border transition-all flex items-center justify-between ${
                   currentPath === '/achievements'
-                    ? 'bg-green/15 border-green text-green-bright font-bold'
-                    : 'border-white/10 text-text hover:bg-white/5'
+                    ? 'bg-green/15 border-green text-green-bright font-bold shadow-[0_0_15px_rgba(0,255,102,0.2)]'
+                    : 'border-white/10 text-text bg-black/40 hover:bg-white/5'
                 }`}
               >
                 <span>Achievements</span>
@@ -159,10 +166,10 @@ export default function Navbar() {
               <Link
                 to="/team"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`p-3.5 rounded-2xl border transition-all flex items-center justify-between ${
+                className={`p-4 rounded-2xl border transition-all flex items-center justify-between ${
                   currentPath === '/team'
-                    ? 'bg-green/15 border-green text-green-bright font-bold'
-                    : 'border-white/10 text-text hover:bg-white/5'
+                    ? 'bg-green/15 border-green text-green-bright font-bold shadow-[0_0_15px_rgba(0,255,102,0.2)]'
+                    : 'border-white/10 text-text bg-black/40 hover:bg-white/5'
                 }`}
               >
                 <span>Our Team</span>
@@ -175,12 +182,12 @@ export default function Navbar() {
             <a
               href="/#join"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full py-3.5 rounded-2xl font-mono text-sm font-bold text-center block text-black bg-gradient-to-r from-green to-emerald-400 shadow-[0_0_20px_rgba(0,255,102,0.4)]"
+              className="w-full py-4 rounded-2xl font-mono text-sm font-bold text-center block text-black bg-gradient-to-r from-green to-emerald-400 shadow-[0_0_25px_rgba(0,255,102,0.4)]"
             >
               Join MADC Club &rarr;
             </a>
 
-            <div className="text-center font-mono text-[10.5px] text-text-faint">
+            <div className="text-center font-mono text-[10.5px] text-text-faint pt-2">
               Mobile Application Development Club &bull; 2026-2027
             </div>
           </div>
