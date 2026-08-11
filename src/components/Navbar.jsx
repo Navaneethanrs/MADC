@@ -29,7 +29,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-md py-3.5 px-4 sm:px-8 md:px-16 transition-all">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Brand Logo */}
-        <Link to="/" className="hover:opacity-95 transition-opacity z-50">
+        <Link to="/" className="flex-shrink-0 min-w-[120px] hover:opacity-95 transition-opacity z-50">
           <MadcLogo className="h-8 md:h-10" showSubtitle={false} />
         </Link>
 
@@ -106,7 +106,7 @@ export default function Navbar() {
       {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 top-[60px] z-40 bg-[#050906]/95 backdrop-blur-xl flex flex-col justify-between p-6 animate-fade-in border-b border-white/10 lg:hidden overflow-y-auto"
+          className="mobile-drawer fixed inset-0 top-[60px] z-40 bg-[#050906]/95 backdrop-blur-xl flex flex-col justify-between p-6 animate-fade-in border-b border-white/10 lg:hidden overflow-y-auto"
           onClick={(e) => {
             if (e.target === e.currentTarget) setIsMobileMenuOpen(false)
           }}

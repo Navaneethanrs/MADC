@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import Scene from './Scene'
 import OrbitCardsOverlay from './OrbitCardsOverlay'
+import Navbar from './Navbar'
 import MadcLogo from './MadcLogo'
 import ThemeToggle from './ThemeToggle'
 import { useMouseTilt } from '../hooks/useMouseTilt'
@@ -127,24 +128,9 @@ export default function Hero() {
       />
 
       {/* nav */}
-      <nav className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-5 md:px-16 py-6">
-        <MadcLogo className="h-9 md:h-11" showSubtitle={true} />
-        <div className="hidden lg:flex items-center gap-8 font-mono text-xs text-text-dim">
-          <Link to="/features" className="hover:text-green transition-colors">Inside MADC</Link>
-          <Link to="/achievements" className="hover:text-green transition-colors">Achievements</Link>
-          <Link to="/team" className="hover:text-green transition-colors">Our Team</Link>
-        </div>
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
-          <a
-            href="#join"
-            className="hidden md:inline-block font-mono text-xs tracking-wide text-text-dim border rounded-full px-[18px] py-[9px] transition-all hover:text-text hover:border-green hover:shadow-[0_0_20px_rgba(0,255,102,0.3)]"
-            style={{ borderColor: 'rgba(0,255,102,0.2)', background: 'rgba(0,255,102,0.04)' }}
-          >
-            Join the Club
-          </a>
-        </div>
-      </nav>
+      <div className="absolute top-0 left-0 right-0 z-30">
+        <Navbar />
+      </div>
 
       {/* hero content */}
       <div className="absolute left-0 right-0 top-[14%] md:top-[16%] z-20 flex flex-col items-center text-center px-5">

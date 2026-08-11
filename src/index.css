@@ -647,3 +647,7 @@ html.theme-light .team-card-subtle:hover {
   border-color: #00a843 !important;
   box-shadow: 0 8px 25px rgba(0, 168, 67, 0.18) !important;
 }
+
+html.theme-light .mobile-drawer {
+  background-color: #f4f8f1 !important;
+}

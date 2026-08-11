@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTheme } from '../context/ThemeContext'
 
-export default function MadcLogo({ className = 'h-10', showSubtitle = true, lightMode }) {
+export default function MadcLogo({ className = 'h-8 sm:h-9 md:h-10', showSubtitle = false, lightMode }) {
   let isLight = lightMode
   try {
     const context = useTheme()
@@ -9,7 +9,7 @@ export default function MadcLogo({ className = 'h-10', showSubtitle = true, ligh
       isLight = context.theme === 'light'
     }
   } catch (e) {
-    // fallback to dark if used outside context
+    // fallback
   }
 
   const primaryColor = isLight ? '#0D1712' : '#FFFFFF'
@@ -17,12 +17,16 @@ export default function MadcLogo({ className = 'h-10', showSubtitle = true, ligh
   const subtextColor = isLight ? '#1B2E24' : '#E5E7EB'
 
   return (
-    <div className={`inline-flex flex-col items-center select-none ${className}`}>
+    <div className={`inline-flex flex-col items-start justify-center flex-shrink-0 select-none ${className}`}>
       <svg
         viewBox="0 0 460 140"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={`w-auto h-full max-h-full ${isLight ? 'drop-shadow-[0_1px_4px_rgba(0,168,67,0.15)]' : 'drop-shadow-[0_0_12px_rgba(0,255,102,0.3)]'}`}
+        className={`w-auto h-full max-h-full min-w-[110px] sm:min-w-[130px] ${
+          isLight
+            ? 'drop-shadow-[0_1px_4px_rgba(0,168,67,0.2)]'
+            : 'drop-shadow-[0_0_12px_rgba(0,255,102,0.4)]'
+        }`}
       >
         {/* --- LETTER M --- */}
         <path
@@ -119,7 +123,7 @@ export default function MadcLogo({ className = 'h-10', showSubtitle = true, ligh
 
       {showSubtitle && (
         <span 
-          className="font-mono font-extrabold text-[10px] sm:text-[11px] md:text-[12px] tracking-[0.25em] sm:tracking-[0.35em] uppercase text-center mt-1.5"
+          className="hidden sm:block font-mono font-extrabold text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.25em] sm:tracking-[0.35em] uppercase text-center mt-1"
           style={{ color: subtextColor }}
         >
           MOBILE APPLICATION DEVELOPMENT CLUB
