@@ -73,6 +73,8 @@ export default function ClubSecretary() {
               <img
                 src="/secretary-harish.png"
                 alt="Harish Kannan"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover rounded-xl transition-all duration-300 group-hover/photo:brightness-110"
               />
             </div>

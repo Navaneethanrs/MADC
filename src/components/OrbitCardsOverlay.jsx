@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { platforms } from '../data/platforms'
 
-const isMobile = typeof window !== 'undefined' && window.innerWidth < 760
-
 export default function OrbitCardsOverlay({ angleRef, phoneScreenPos, activeIndex, onActiveChange }) {
   const cardRefs = useRef([])
   const containerRef = useRef()
@@ -12,11 +10,21 @@ export default function OrbitCardsOverlay({ angleRef, phoneScreenPos, activeInde
 
   useEffect(() => {
     let raf
+    const isMobile = window.innerWidth < 760
     const RX = () => (isMobile ? Math.min(window.innerWidth * 0.42, 190) : Math.min(window.innerWidth * 0.3, 400))
     const RY = () => (isMobile ? 90 : 130)
 
+    let skipFrame = false
+
     function tick() {
       raf = requestAnimationFrame(tick)
+
+      // On mobile, skip every second frame to cut CPU work in half
+      if (isMobile) {
+        skipFrame = !skipFrame
+        if (skipFrame) return
+      }
+
       const container = containerRef.current
       if (!container) return
       const cx = container.clientWidth / 2
@@ -36,13 +44,16 @@ export default function OrbitCardsOverlay({ angleRef, phoneScreenPos, activeInde
         const zFactor = (Math.sin(angle) + 1) / 2
         const scale = 0.72 + zFactor * 0.4
         const opacity = 0.35 + zFactor * 0.65
-        const blur = (1 - zFactor) * 2.2
 
         const el = cardRefs.current[i]
         if (el) {
-          el.style.transform = `translate(-50%,-50%) translate(${x}px, ${y}px) scale(${scale})`
+          el.style.transform = `translate3d(-50%,-50%,0) translate3d(${x}px, ${y}px, 0) scale(${scale})`
           el.style.opacity = opacity.toFixed(2)
-          el.style.filter = `blur(${blur.toFixed(1)}px)`
+          // Omit expensive blur animation on mobile
+          if (!isMobile) {
+            const blur = (1 - zFactor) * 2.2
+            el.style.filter = `blur(${blur.toFixed(1)}px)`
+          }
           el.style.zIndex = Math.round(zFactor * 100)
         }
 
@@ -90,10 +101,10 @@ export default function OrbitCardsOverlay({ angleRef, phoneScreenPos, activeInde
           ref={(el) => (cardRefs.current[i] = el)}
           className="orbit-card absolute top-0 left-0 flex items-center gap-[9px] rounded-full border pl-[9px] pr-[14px] py-[9px] whitespace-nowrap"
           style={{
-            transform: 'translate(-50%,-50%)',
+            transform: 'translate3d(-50%,-50%,0)',
             background: 'rgba(9,16,12,0.65)',
             borderColor: 'rgba(255,255,255,0.09)',
-            backdropFilter: 'blur(6px)',
+            backdropFilter: 'blur(4px)',
             willChange: 'transform, opacity',
             '--glow': `rgba(${p.glow},0.55)`,
           }}
@@ -106,9 +117,6 @@ export default function OrbitCardsOverlay({ angleRef, phoneScreenPos, activeInde
           </span>
           <span>
             <span className="block font-body text-[13px] font-medium text-text">{p.label}</span>
-            {!isMobile && (
-              <span className="block font-mono text-[10px] text-text-faint mt-[1px]">{p.cmd}</span>
-            )}
           </span>
         </div>
       ))}

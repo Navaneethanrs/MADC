@@ -95,6 +95,8 @@ export default function FacultyCoordinators() {
                   <img
                     src={member.image}
                     alt={member.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover rounded-xl transition-all duration-300 group-hover/photo:brightness-110"
                   />
                 </div>

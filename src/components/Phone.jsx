@@ -8,7 +8,7 @@ import { useTheme } from '../context/ThemeContext'
 
 const PHONE_D = 0.2
 
-export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos }) {
+export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos, isMobile }) {
   const groupRef = useRef()
   const sheenRef = useRef()
   const sheenMatRef = useRef()
@@ -17,19 +17,19 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
   const { theme } = useTheme()
   const isLight = theme === 'light'
 
-  const bodyGeo = useMemo(() => createRoundedBoxGeometry(1.85, 3.75, PHONE_D, 0.32), [])
-  const rimGeo = useMemo(() => createRoundedBoxGeometry(1.85, 3.75, PHONE_D, 0.32), [])
+  const bodyGeo = useMemo(() => createRoundedBoxGeometry(1.85, 3.75, PHONE_D, isMobile ? 0.16 : 0.32), [isMobile])
+  const rimGeo = useMemo(() => createRoundedBoxGeometry(1.85, 3.75, PHONE_D, isMobile ? 0.16 : 0.32), [isMobile])
   const screenGeo = useMemo(() => new THREE.PlaneGeometry(1.55, 3.35), [])
   const sheenGeo = useMemo(() => new THREE.PlaneGeometry(0.5, 3.9), [])
 
   // Canvas texture for the phone "screen"
   const { canvas, texture } = useMemo(() => {
     const canvas = document.createElement('canvas')
-    canvas.width = 300
-    canvas.height = 610
+    canvas.width = isMobile ? 200 : 300
+    canvas.height = isMobile ? 400 : 610
     const texture = new THREE.CanvasTexture(canvas)
     return { canvas, texture }
-  }, [])
+  }, [isMobile])
 
   const glowTexture = useMemo(() => new THREE.CanvasTexture(makeGlowTexture(isLight)), [isLight])
 
@@ -39,8 +39,9 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
     texture.needsUpdate = true
   }, [activeIndex, canvas, texture, isLight])
 
-  // Sheen sweep loop
+  // Sheen sweep loop (skip on mobile to save GPU cycles)
   useEffect(() => {
+    if (isMobile) return
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion || !sheenRef.current) return
 
@@ -51,18 +52,20 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
       .to(sheenMatRef.current, { opacity: 0, duration: 0.4 }, '-=0.3')
 
     return () => tl.kill()
-  }, [isLight])
+  }, [isLight, isMobile])
 
   const curTilt = useRef({ x: 0, y: 0 })
   const projected = useMemo(() => new THREE.Vector3(), [])
 
   useFrame((state, delta) => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    angleRef.current += (reduceMotion ? 0.03 : 0.18) * delta
+    angleRef.current += (reduceMotion || isMobile ? 0.08 : 0.18) * delta
 
-    const target = mouseTilt.current
-    curTilt.current.x += (target.y * 0.28 - curTilt.current.x) * 0.06
-    curTilt.current.y += (target.x * 0.45 - curTilt.current.y) * 0.06
+    if (!isMobile) {
+      const target = mouseTilt.current
+      curTilt.current.x += (target.y * 0.28 - curTilt.current.x) * 0.06
+      curTilt.current.y += (target.x * 0.45 - curTilt.current.y) * 0.06
+    }
 
     const g = groupRef.current
     if (!g) return
@@ -72,7 +75,7 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
     g.rotation.z = Math.sin(state.clock.elapsedTime * 0.4) * 0.02
     g.position.y = Math.sin(state.clock.elapsedTime * 0.6) * 0.16
 
-    // project phone center to screen-space pixels, for the connecting line drawn outside the canvas
+    // project phone center to screen-space pixels
     projected.set(0, 0, 0).applyMatrix4(g.matrixWorld).project(camera)
     phoneScreenPos.current.x = (projected.x * 0.5 + 0.5) * size.width
     phoneScreenPos.current.y = (-projected.y * 0.5 + 0.5) * size.height
@@ -82,16 +85,24 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
     <group ref={groupRef}>
       {/* body */}
       <mesh geometry={bodyGeo}>
-        <meshPhysicalMaterial
-          color={isLight ? '#e6f4ea' : '#08140c'}
-          metalness={isLight ? 0.35 : 0.6}
-          roughness={isLight ? 0.12 : 0.14}
-          clearcoat={1}
-          clearcoatRoughness={0.05}
-          reflectivity={1}
-          transmission={isLight ? 0.02 : 0.08}
-          ior={1.4}
-        />
+        {isMobile ? (
+          <meshStandardMaterial
+            color={isLight ? '#e6f4ea' : '#08140c'}
+            metalness={isLight ? 0.35 : 0.6}
+            roughness={isLight ? 0.2 : 0.25}
+          />
+        ) : (
+          <meshPhysicalMaterial
+            color={isLight ? '#e6f4ea' : '#08140c'}
+            metalness={isLight ? 0.35 : 0.6}
+            roughness={isLight ? 0.12 : 0.14}
+            clearcoat={1}
+            clearcoatRoughness={0.05}
+            reflectivity={1}
+            transmission={isLight ? 0.02 : 0.08}
+            ior={1.4}
+          />
+        )}
       </mesh>
 
       {/* rim glow shell */}
@@ -112,38 +123,30 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
       </mesh>
 
       {/* sheen sweep */}
-      <mesh
-        ref={sheenRef}
-        geometry={sheenGeo}
-        position={[-1.3, 0, PHONE_D / 2 + 0.03]}
-        rotation={[0, 0, 0.28]}
-      >
-        <meshBasicMaterial
-          ref={sheenMatRef}
-          color={isLight ? '#00a843' : '#ffffff'}
-          transparent
-          opacity={0}
-          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
-          depthWrite={false}
-        />
-      </mesh>
+      {!isMobile && (
+        <mesh
+          ref={sheenRef}
+          geometry={sheenGeo}
+          position={[-1.3, 0, PHONE_D / 2 + 0.03]}
+          rotation={[0, 0, 0.28]}
+        >
+          <meshBasicMaterial
+            ref={sheenMatRef}
+            color={isLight ? '#00a843' : '#ffffff'}
+            transparent
+            opacity={0}
+            blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
+            depthWrite={false}
+          />
+        </mesh>
+      )}
 
-      {/* halo glow sprites */}
-      <sprite scale={[6.5, 6.5, 1]} position={[0, 0, -0.6]}>
+      {/* halo glow sprite */}
+      <sprite scale={isMobile ? [4.5, 4.5, 1] : [6.5, 6.5, 1]} position={[0, 0, -0.6]}>
         <spriteMaterial
           map={glowTexture}
           transparent
-          opacity={isLight ? 0.6 : 0.9}
-          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
-          depthWrite={false}
-        />
-      </sprite>
-      <sprite scale={[5, 5, 1]} position={[1.2, -1, -0.4]}>
-        <spriteMaterial
-          map={glowTexture}
-          color={isLight ? '#00a843' : '#00e676'}
-          transparent
-          opacity={isLight ? 0.5 : 0.8}
+          opacity={isLight ? 0.6 : 0.85}
           blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
           depthWrite={false}
         />
@@ -151,4 +154,3 @@ export default function Phone({ angleRef, mouseTilt, activeIndex, phoneScreenPos
     </group>
   )
 }
-

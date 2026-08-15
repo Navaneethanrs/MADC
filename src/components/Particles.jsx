@@ -16,12 +16,11 @@ const LIGHT_PALETTE = [
   [0.1, 0.5, 0.3],
 ]
 
-export default function Particles() {
+export default function Particles({ isMobile }) {
   const pointsRef = useRef()
   const { theme } = useTheme()
   const isLight = theme === 'light'
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 760
-  const count = isMobile ? 260 : 650
+  const count = isMobile ? 120 : 650
 
   const { positions, colors } = useMemo(() => {
     const positions = new Float32Array(count * 3)
@@ -44,8 +43,8 @@ export default function Particles() {
   useFrame((state) => {
     const t = state.clock.elapsedTime
     if (!pointsRef.current) return
-    pointsRef.current.rotation.y = t * 0.015
-    pointsRef.current.rotation.x = t * 0.006
+    pointsRef.current.rotation.y = t * 0.012
+    pointsRef.current.rotation.x = t * 0.005
   })
 
   return (
@@ -62,9 +61,8 @@ export default function Particles() {
         vertexColors
         blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
         depthWrite={false}
-        sizeAttenuation
+        sizeAttenuation={!isMobile}
       />
     </points>
   )
 }
-

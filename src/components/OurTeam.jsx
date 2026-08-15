@@ -303,6 +303,8 @@ function MemberAvatar({ member, size = 'normal', onClick }) {
         <img
           src={imgSrc}
           alt={member.name}
+          loading="lazy"
+          decoding="async"
           onError={() => {
             if (imgSrc.endsWith('.jpg')) {
               setImgSrc(`/team/${member.rollNo}.png`)

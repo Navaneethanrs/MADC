@@ -657,3 +657,21 @@ html.theme-light .mobile-drawer {
   background-color: #f4f8f1 !important;
   border-top-color: rgba(0, 168, 67, 0.2) !important;
 }
+
+/* ---------- Mobile Performance & Cross-Platform Optimizations ---------- */
+@media (max-width: 768px) {
+  .hero-bg {
+    animation: none !important;
+    background-size: 100% 100% !important;
+  }
+  .grain {
+    display: none !important;
+  }
+  .text-gradient {
+    animation: none !important;
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
